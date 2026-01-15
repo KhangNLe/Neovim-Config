@@ -20,7 +20,8 @@ return {
                     "html",
                     "cssls",
                     "pylsp",
-                    "jdtls"
+                    "jdtls",
+                    "clangd"
                 },
             })
         end,
@@ -28,9 +29,21 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local lspconfig = require("lspconfig")
+            --local lspconfig = require("lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+            vim.lsp.config('lua_ls', { capabilities = capabilities })
+            vim.lsp.config('pypls', { capabilities = capabilities })
+            vim.lsp.config('harper_ls', { capabilities = capabilities })
+            vim.lsp.config('zls', { capabilities = capabilities })
+            vim.lsp.config('ts_ls', { capabilities = capabilities })
+            vim.lsp.config('jdtls', { capabilities = capabilities })
+            vim.lsp.config('bashls', { capabilities = capabilities })
+            vim.lsp.config('html', { capabilities = capabilities })
+            vim.lsp.config('cssls', { capabilities = capabilities })
+            vim.lsp.config('clangd', { capabilities = capabilities })
+
+            --[[
             lspconfig.lua_ls.setup({ capabilities = capabilities })
             lspconfig.pylsp.setup({ capabilities = capabilities })
             lspconfig.gopls.setup({ capabilities = capabilities })
@@ -41,6 +54,9 @@ return {
             lspconfig.bashls.setup({ capabilities = capabilities })
             lspconfig.html.setup({ capabilities = capabilities })
             lspconfig.cssls.setup({ capabilities = capabilities })
+            lspconfig.clangd.setup({ capabilities = capabilities })
+            ]] --
+
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
